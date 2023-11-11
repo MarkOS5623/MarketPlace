@@ -1,0 +1,169 @@
+﻿@model (User user, CreditCard card, Address address)
+@{
+    ViewBag.Title = "Register";
+}
+<br />
+<div class="container p-10 border">
+    <div class="form-container">
+        <form method="post">
+            <!-- Registration page html
+                the user information is required to create a user
+                the shipping and credit card forms are optional but are there for ease of use
+                they will automatically be save to the user's account and could be used when paying for an order
+                each information form is in it's own accordion for changes refer to the css go Site.css-->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>User Information</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="user.Email" class="form-label">Email</label>
+                                </font>
+                            </b>
+                            <input asp-for="user.Email" style="width: 50%" class="form-control form-input" placeholder="example@mail.com" />
+                            <span asp-validation-for="user.Email" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <font size="5" color="black">
+                                <b>
+                                    <label asp-for="user.Password" class="form-label mt-4">Password</label>
+                                </b>
+                            </font>
+                            <input asp-for="user.Password" style="width: 50%" class="form-control form-input" type="password" placeholder="password" />
+                            <span asp-validation-for="user.Password" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <font size="5" color="black">
+                                <b>
+                                    <label class="form-label mt-4">Confirm Password</label>
+                                </b>
+                            </font>
+                            <input style="width: 50%" class="form-control form-input" type="password" placeholder="confirm password" />
+                            <span class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" asp-for="user.UserId" style="width: 50%" class="form-control form-input" placeholder="Airline" value="1234" />
+                            <span asp-validation-for="user.UserId" class="text-bg"></span>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="Payment Information">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Payment Information</h3>
+                    </div>
+                    <div class="accordion-content">
+
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="card.CardNumber" class="form-label">Card Number</label>
+                                </font>
+                            </b>
+                            <input asp-for="card.CardNumber" style="width: 50%" class="form-control form-input" placeholder="1234 1234 1234 1234" />
+                            <span asp-validation-for="card.CardNumber" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label class="form-label">Expiration Date </label>
+                                </font>
+                            </b>
+                            <div class="row">
+                                <div class="col-lg-1" style="width:150px">
+                                    <input asp-for="card.ExpMonth" style="width: 120px" class="form-control form-input" placeholder="0-12" />
+                                    <span asp-validation-for="card.ExpMonth" class="text-bg-danger"></span>
+                                </div>
+                                <div class="col">
+                                    <input asp-for="card.ExpYear" style="width: 120px" class="form-control form-input" placeholder="2023" />
+                                    <span asp-validation-for="card.ExpYear" class="text-bg-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="card.CVV" class="form-label">CVV</label>
+                                </font>
+                            </b>
+                            <input asp-for="card.CVV" style="width: 30%" class="form-control form-input" placeholder="123" />
+                            <span asp-validation-for="card.CVV" class="text-bg-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Shipping Information</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="address.Street" class="form-label">Street Name and number</label>
+                                </font>
+                            </b>
+                            <input asp-for="address.Street" style="width: 50%" class="form-control form-input" placeholder="Elm Street 10" />
+                            <span asp-validation-for="address.Street" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="address.Zipcode" class="form-label">Zipcode</label>
+                                </font>
+                            </b>
+                            <input asp-for="address.Zipcode" style="width: 50%" class="form-control form-input" placeholder="1234567" />
+                            <span asp-validation-for="address.Zipcode" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="address.ApartmentNum" class="form-label">Apartment Number</label>
+                                </font>
+                            </b>
+                            <input asp-for="address.ApartmentNum" style="width: 50%" class="form-control form-input" placeholder="0." />
+                            <span asp-validation-for="address.ApartmentNum" class="text-bg-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <b>
+                                <font size="5" color="black">
+                                    <label asp-for="address.FloorNum" class="form-label">Floor Number</label>
+                                </font>
+                            </b>
+                            <input asp-for="address.FloorNum" style="width: 50%" class="form-control form-input" placeholder="0." />
+                            <span asp-validation-for="address.FloorNum" class="text-bg-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm" style="width:150px">
+                <font size="4" color="white">
+                    Register
+                </font>
+            </button>
+
+            <a asp-controller="User" asp-action="Login" class="btn btn-primary btn-sm" style="width:150px">
+                <font size="4" color="white">
+                    Cancel
+                </font>
+            </a>
+
+        </form>
+    </div>
+</div>
