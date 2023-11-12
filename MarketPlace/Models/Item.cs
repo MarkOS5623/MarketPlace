@@ -8,6 +8,11 @@ namespace MarketPlace.Models
 {
     public class Item
     {
+        [Key]
+        [Required]
+        [RegularExpression("^[0-9]{4}$")]
+        [StringLength(4, MinimumLength = 4)]
+        public string ItemID { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

@@ -13,9 +13,15 @@ namespace MarketPlace.Models
 {
     public class Address
     {
-        public virtual User User { get; set; }
+        [RegularExpression("^[0-9]{4}$")]
         public string User_ID { get; set; }
         [ForeignKey("User_ID")]
+        public virtual User User { get; set; }
+        [Key]
+        [Required]
+        [RegularExpression("^[0-9]{4}$")]
+        [StringLength(4, MinimumLength = 4)]
+        public string AddressID { get; set; }
         [Required]
         public string Street { set; get; }
         [Required]

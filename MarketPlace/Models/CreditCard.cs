@@ -12,11 +12,9 @@ namespace MarketPlace.Models
 {
     public class CreditCard
     {
-        public virtual User User { get; set; }
-        [Required]
-        [RegularExpression("^[0-9]{4}$")]
         public string User_ID { get; set; }
         [ForeignKey("User_ID")]
+        public virtual User User { get; set; }
         [RegularExpression("^[0-9]{9}$", ErrorMessage = "Your ID is not valid")]
         [StringLength(9, MinimumLength = 9)]
         [DisplayName("Card Holder ID")]
